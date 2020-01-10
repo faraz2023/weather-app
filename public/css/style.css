@@ -1,0 +1,61 @@
+body {
+  color: #333333;
+  font-family: arial;
+  max-width: 650px;
+  /* 0 for top-bottom; auto for left right,makes centre aligned */
+  margin: 0 auto;
+  padding: 0 16px;
+
+  display: flex;
+  flex-direction: column;
+  /* 100% of view hort (all browser)*/
+  min-height: 100vh;
+}
+
+.main-content {
+  flex-grow: 1;
+}
+
+/*padding is spacing inside an element, margin is space outside of it */
+footer {
+  color: #888888;
+  border-top: 1px solid #dddddd;
+  margin-top: 16px;
+  padding: 16px 0;
+}
+
+header {
+  margin-top: 16px;
+  margin-bottom: 30px;
+}
+
+h1 {
+  font-size: 64px;
+  margin-bottom: 12px;
+}
+
+/* for 'a' in 'header' */
+header a {
+  color: #888888;
+  margin-right: 16px;
+  text-decoration: none;
+}
+
+/* class selector*/
+.portrait {
+  width: 250px;
+  border: 10px solid #eeeeee;
+}
+
+input {
+  border: 1px solid #cccccc;
+  padding: 8px;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid #888888;
+  background: #888888;
+  color: white;
+  padding: 8px;
+}
