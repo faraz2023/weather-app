@@ -86,7 +86,9 @@ const send_wheather_by_name = (address, callback) => {
         longitude,
         location,
         current_temp: data.current_tempeture,
-        rain_chance: data.rain_chance
+        apparent_temeture: data.apparent_temeture,
+        summary: data.summary,
+        rain_chance: data.rain_chance,
       })
     })
   })
@@ -111,7 +113,9 @@ app.get("/wheather", (req, res) => {
       longitude,
       location,
       current_temp,
-      rain_chance
+      rain_chance,
+      apparent_temeture,
+      summary
     } = data;
 
     res.send({
@@ -119,7 +123,9 @@ app.get("/wheather", (req, res) => {
       longitude,
       location,
       current_temp,
-      rain_chance
+      rain_chance,
+      apparent_temeture,
+      summary
     });
   })
 });
