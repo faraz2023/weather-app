@@ -7,10 +7,16 @@
 <body>
     <div class="main-content">
         {{>header}}
-
-        <p>This app is from your friend, {{name}}</p>
-        <p>Below you find a picture of me. I created this app to show that I can use node to do basic stuff</p>
-        <img class="portrait" src='img/me.jpeg'>
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md-12'>
+                    <p>This app is from your friend, {{name}}</p>
+                    <p>Below you find a picture of me. I created this app to show that I can use node to do basic stuff
+                    </p>
+                    <img class="portrait" src='img/me.jpeg'>
+                </div>
+            </div>
+        </div>
     </div>
 
     {{>footer}}

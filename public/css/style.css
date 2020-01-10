@@ -1,7 +1,6 @@
 body {
   color: #333333;
   font-family: arial;
-  max-width: 650px;
   /* 0 for top-bottom; auto for left right,makes centre aligned */
   margin: 0 auto;
   padding: 0 16px;
