@@ -130,6 +130,36 @@ app.get("/wheather", (req, res) => {
   })
 });
 
+app.get("/wheather/bycurrentlocation", (req, res) => {
+  geocode.google_geolocation((error, result) => {
+    if (error) {
+      return res.send({
+        error: "Failed to use Google Geolocation Service"
+      })
+    }
+    const data = result
+
+
+    forecast.get_weather_by_geocodes(data, (error, result) => {
+      if (error) {
+        return res.send({
+          error: 'Forecast failed'
+        })
+      }
+      res.send({
+        latitude: data.latitude,
+        longitude: data.longitude,
+        location: data.location,
+        current_temp: result.current_tempeture,
+        apparent_temeture: result.apparent_temeture,
+        summary: result.summary,
+        rain_chance: result.rain_chance,
+      })
+    })
+
+  });
+});
+
 app.get("*", (req, res) => {
   res.render("404", {
     title: "404",
