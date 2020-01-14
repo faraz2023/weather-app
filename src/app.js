@@ -131,14 +131,24 @@ app.get("/wheather", (req, res) => {
 });
 
 app.get("/wheather/bycurrentlocation", (req, res) => {
-  geocode.google_geolocation((error, result) => {
+  if (!req.query.longitude || !req.query.latitude) {
+    console.log(req.query)
+    return res.send({
+      error: "provide longitude and latitude as key values"
+    })
+  }
+  const data = {
+    'latitude': req.query.latitude,
+    'longitude': req.query.longitude
+  }
+
+  geocode.reverse_geocode(data, (error, result) => {
     if (error) {
       return res.send({
-        error: "Failed to use Google Geolocation Service"
+        error: "Failed to use Reverse Geocode Service"
       })
     }
-    const data = result
-
+    data.location = result.location
 
     forecast.get_weather_by_geocodes(data, (error, result) => {
       if (error) {
