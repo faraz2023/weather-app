@@ -54,9 +54,7 @@ currentLocationButton.addEventListener('click', (e) => {
 
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
-        console.log(latitude, longitude)
         api_url = `/wheather/bycurrentlocation?latitude=${latitude}&longitude=${longitude}`
-        console.log(api_url)
         fetch(api_url).then(response => {
             response.json().then(data => {
                 if (data.error) {
