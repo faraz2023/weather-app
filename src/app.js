@@ -5,7 +5,7 @@ const hbs = require("hbs");
 const app = express();
 
 // setting up the PORT for heroku or, local use
-const port = process.env.PORT || 3001
+const port = process.env.PORT || 3001;
 
 const geocode = require("./utils/geocode.js");
 const forecast = require("./utils/forecast.js");
@@ -68,31 +68,28 @@ app.get("/help/*", (req, res) => {
 const send_wheather_by_name = (address, callback) => {
   geocode.get_geocodes(address, (error, data) => {
     if (error) {
-      return callback(error, undefined)
+      return callback(error, undefined);
     }
 
-    const {
-      latitude,
-      longitude,
-      location
-    } = data;
+    const { latitude, longitude, location } = data;
 
     forecast.get_weather_by_geocodes(data, (error, data) => {
       if (error) {
-        return callback(error, undefined)
+        return callback(error, undefined);
       }
       callback(undefined, {
         latitude,
         longitude,
         location,
+        daily_data: data.daily_data,
         current_temp: data.current_tempeture,
         apparent_temeture: data.apparent_temeture,
         summary: data.summary,
-        rain_chance: data.rain_chance,
-      })
-    })
-  })
-}
+        rain_chance: data.rain_chance
+      });
+    });
+  });
+};
 
 // /wheather
 app.get("/wheather", (req, res) => {
@@ -105,10 +102,11 @@ app.get("/wheather", (req, res) => {
   send_wheather_by_name(address, (error, data) => {
     if (error) {
       return res.send({
-        error: 'location error'
-      })
+        error: "location error"
+      });
     }
     const {
+      daily_data,
       latitude,
       longitude,
       location,
@@ -119,6 +117,7 @@ app.get("/wheather", (req, res) => {
     } = data;
 
     res.send({
+      daily_data,
       latitude,
       longitude,
       location,
@@ -127,46 +126,46 @@ app.get("/wheather", (req, res) => {
       apparent_temeture,
       summary
     });
-  })
+  });
 });
 
 app.get("/wheather/bycurrentlocation", (req, res) => {
   if (!req.query.longitude || !req.query.latitude) {
-    console.log(req.query)
+    console.log(req.query);
     return res.send({
       error: "provide longitude and latitude as key values"
-    })
+    });
   }
   const data = {
-    'latitude': req.query.latitude,
-    'longitude': req.query.longitude
-  }
+    latitude: req.query.latitude,
+    longitude: req.query.longitude
+  };
 
   geocode.reverse_geocode(data, (error, result) => {
     if (error) {
       return res.send({
         error: "Failed to use Reverse Geocode Service"
-      })
+      });
     }
-    data.location = result.location
+    data.location = result.location;
 
     forecast.get_weather_by_geocodes(data, (error, result) => {
       if (error) {
         return res.send({
-          error: 'Forecast failed'
-        })
+          error: "Forecast failed"
+        });
       }
       res.send({
+        daily_data: result.daily_data,
         latitude: data.latitude,
         longitude: data.longitude,
         location: data.location,
         current_temp: result.current_tempeture,
         apparent_temeture: result.apparent_temeture,
         summary: result.summary,
-        rain_chance: result.rain_chance,
-      })
-    })
-
+        rain_chance: result.rain_chance
+      });
+    });
   });
 });
 
