@@ -40,7 +40,8 @@ const update = (option) => {
 
     daily_data.forEach(element => {
         date = new Date(element.time * 1000);
-        element.date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+        console.log()
+        element.date = `${date.toLocaleDateString()}`
     })
 
     let color = ''
